@@ -1,97 +1,83 @@
 // implementing queues using arrays
 
 #include <stdio.h>
+#include<stdlib.h>
+#define MAX 50
 
-#define MAX 6
+int queue_array[MAX];
+int rear = - 1;
+int front = - 1;
 
-int intArray[MAX];
-int front = 0;
-int rear = -1;
-int Count = 0;
-
-  int peek() 
-  {
-   return front;
-   }
-
-  int isEmpty() 
-  {
-    return Count == 0;
-  }
-
-  int isFull() 
-  {
-   return Count == MAX;
-  }
-
-
-  void enqueue(int data)
-  {
-
-   if(!isFull()) 
-   {
-	
-      if(rear == MAX-1) {
-         rear = -1;            
-      }       
-
-      intArray[++rear] = data;
-      itemCount++;
-   }
- }
-
-  int dequeue()
-  {
-   int data = intArray[front++];
-	
-   if (front == MAX)
-   {
-      front = 0;
-   }
-	
-   itemCount--;
-   return data;  
-  }
-
-int main() 
+void insert()
 {
-   /* insert 5 items */
-   
-   enqueue(3);
-   enqueue(5);
-   enqueue(9);
-   enqueue(1);
-   enqueue(12);
+  int item;
+  if(rear == MAX - 1)
+  printf("Queue Overflow");
+  else
+ {
+    if(front== - 1)
+    front = 0;
+    printf("Inset the element in queue : ");
+    scanf("%d", &item);
+    rear = rear + 1; // element added from rear end
+    queue_array[rear] = item;
+ }
+}
 
-   
-  enqueue(15);
+void delete()
+{
+ if(front == - 1 || front > rear)
+ {
+   printf("Queue Underflow n");
+   return;
+ }
+else
+ {
+   printf("Element deleted from queue is : %dn", queue_array[front]);
+   front = front + 1;
+ }
+}
 
-	
-   if(isFull()) {
-      printf("Queue is full\n");   
-   }
+void display()
+{
+ int i;
+  if(front == - 1)
+    printf("Queue is empty n");
+ else
+ {
+    printf("Queue is : ");
+    for(i = front; i <= rear; i++)
+     printf("%d ", queue_array[i]);
+    printf("\n");
+ }
+}
 
-   // remove one item 
-   
-   int num = dequeue();
-	
-   printf("Element removed: %d\n",num);
-  
-   enqueue(16);
-
-    
-   enqueue(17);
-   enqueue(18);
-
-  
-   printf("Element at front: %d\n",peek());
-
-
-  
-   printf("Final queue after removing elements:\n  ");
-	
-   while(!isEmpty()) {
-      int n = dequeue();           
-      printf("%d ",n);
-   }   
+int main()
+{
+   int choice;
+   while (1)
+   {
+    printf("1.Insert element to queue n");
+    printf("\n2.Delete element from queue n");
+    printf("\n3.Display all elements of queue n");
+    printf("\n4.Quit n");
+    printf("\nEnter your choice : ");
+    scanf("%d", &choice);
+    switch(choice)
+    {
+      case 1:
+        insert();
+        break;
+     case 2:
+       delete();
+        break;
+     case 3:
+       display();
+       break;
+    case 4:
+      exit(1);
+   default:
+       printf("Wrong choice n");
+  }
+}
 }
